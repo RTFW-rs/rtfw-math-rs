@@ -24,6 +24,10 @@ pub fn gcd(a: u32, b: u32) -> u32 {
     gcd
 }
 
+pub fn fact(n: u32) -> u32 {
+    if n == 0 { 1 } else { n * fact(n - 1) }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -62,5 +66,29 @@ mod tests {
     fn test_lcm_8_6() {
         let result = lcm(8, 6);
         assert_eq!(result, 24);
+    }
+
+    #[test]
+    fn test_fact_0() {
+        let result = fact(0);
+        assert_eq!(result, 1);
+    }
+
+    #[test]
+    fn test_fact_2() {
+        let result = fact(2);
+        assert_eq!(result, 2);
+    }
+
+    #[test]
+    fn test_fact_3() {
+        let result = fact(3);
+        assert_eq!(result, 6);
+    }
+
+    #[test]
+    fn test_fact_5() {
+        let result = fact(5);
+        assert_eq!(result, 120);
     }
 }
