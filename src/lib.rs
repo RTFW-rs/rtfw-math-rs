@@ -1,4 +1,16 @@
+pub fn abs(a: i32) -> u32 {
+    (if a < 0 { -a } else { a }) as u32
+}
+
 pub fn lcm(a: u32, b: u32) -> u32 {
+    if a == 0 && b == 0 {
+        0
+    } else {
+        abs(a as i32) * (abs(b as i32) / gcd(a, b))
+    }
+}
+
+pub fn lazy_lcm(a: u32, b: u32) -> u32 {
     let base_mul = a * b;
     let mut lcm = base_mul;
 
@@ -12,8 +24,33 @@ pub fn lcm(a: u32, b: u32) -> u32 {
 }
 
 pub fn gcd(a: u32, b: u32) -> u32 {
-    let min = if a < b { a } else { b };
-    let max = if a > b { a } else { b };
+    euclidean_gcd(a, b)
+}
+
+pub fn euclid_gcd(a: u32, b: u32) -> u32 {
+    let (min, max) = if a < b { (a, b) } else { (b, a) };
+
+    if min == 0 {
+        max
+    } else if min == max {
+        min
+    } else {
+        euclid_gcd(max - min, min)
+    }
+}
+
+pub fn euclidean_gcd(a: u32, b: u32) -> u32 {
+    let (min, max) = if a < b { (a, b) } else { (b, a) };
+
+    if min == 0 {
+        max
+    } else {
+        euclid_gcd(max % min, min)
+    }
+}
+
+pub fn lazy_gcd(a: u32, b: u32) -> u32 {
+    let (min, max) = if a < b { (a, b) } else { (b, a) };
 
     if min == 0 {
         return max;
@@ -113,5 +150,20 @@ mod tests {
     fn test_fact_5() {
         let result = fact(5);
         assert_eq!(result, 120);
+    }
+
+    #[test]
+    fn test_abs_positive() {
+        assert_eq!(abs(5), 5);
+    }
+
+    #[test]
+    fn test_abs_negative() {
+        assert_eq!(abs(-5), 5);
+    }
+
+    #[test]
+    fn test_abs_zero() {
+        assert_eq!(abs(0), 0);
     }
 }
