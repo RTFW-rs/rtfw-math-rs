@@ -13,6 +13,11 @@ pub fn lcm(a: u32, b: u32) -> u32 {
 
 pub fn gcd(a: u32, b: u32) -> u32 {
     let min = if a < b { a } else { b };
+    let max = if a > b { a } else { b };
+
+    if min == 0 {
+        return max;
+    }
 
     let mut gcd = 1;
     for i in 2..=min {
@@ -48,6 +53,24 @@ mod tests {
     fn test_gcd_8_6() {
         let result = gcd(8, 6);
         assert_eq!(result, 2);
+    }
+
+    #[test]
+    fn test_gcd_0_5() {
+        let result = gcd(0, 5);
+        assert_eq!(result, 5);
+    }
+
+    #[test]
+    fn test_gcd_5_0() {
+        let result = gcd(5, 0);
+        assert_eq!(result, 5);
+    }
+
+    #[test]
+    fn test_gcd_0_0() {
+        let result = gcd(0, 0);
+        assert_eq!(result, 0);
     }
 
     #[test]
