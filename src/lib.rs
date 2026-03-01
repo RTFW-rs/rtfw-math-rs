@@ -1,3 +1,5 @@
+mod fibo;
+
 pub fn abs(a: i32) -> u32 {
     (if a < 0 { -a } else { a }) as u32
 }
